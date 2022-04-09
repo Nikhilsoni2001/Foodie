@@ -1,4 +1,3 @@
-const verify = require('jsonwebtoken/verify');
 const mongoose = require('mongoose');
 
 const ForgetSchema = new mongoose.Schema({

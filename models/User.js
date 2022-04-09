@@ -5,6 +5,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  uid: {
+    type: String,
+  },
   role: {
     type: String,
     default: 'user',

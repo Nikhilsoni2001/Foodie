@@ -66,6 +66,7 @@ router.post(
         phone_no,
         avatar,
         password,
+        uid,
       });
 
       const salt = await bcrypt.genSalt(10);
@@ -103,9 +104,6 @@ router.post(
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);
-        } else {
-          console.log('Email sent: ' + info);
-          console.log(info);
         }
         var job = new CronJob(
           '*/59 * * * *',
