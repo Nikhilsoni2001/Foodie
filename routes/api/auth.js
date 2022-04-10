@@ -226,4 +226,61 @@ router.post(
   }
 );
 
+// Validate Reset Code
+router.get('/reset-code', async (req, res) => {
+  let { code } = req.query;
+
+  try {
+    const data = await Forget.findOne({ code });
+    if (!data) {
+      return res.status(404).json({ msg: 'Unauthorized!' });
+    }
+    res.sendStatus(200);
+  } catch (error) {
+    return res.status(404).json({ msg: 'Unauthorized!' });
+  }
+});
+
+// Update Password
+router.post(
+  '/update-password',
+  [
+    check(
+      'password',
+      'Password should be combination of one uppercase , one lower case, one special char, one digit and min 8 , max 20 char long'
+    ).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, 'i'),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    let { code, password } = req.body;
+
+    try {
+      const user = await Forget.findOne({ code });
+
+      if (!user) {
+        return res.status(404).send('Invalid URL!');
+      }
+
+      let email = user.email;
+      const salt = await bcrypt.genSalt(10);
+      let newPass = await bcrypt.hash(password, salt);
+      const update = {
+        password: newPass,
+      };
+
+      await User.findOneAndUpdate({ email }, update);
+      await Forget.findOneAndDelete({ code });
+
+      res.status(200).json({ msg: 'Password Updated Successfully!' });
+    } catch (error) {
+      console.error(error);
+      res.send(500).send('Server Error');
+    }
+  }
+);
+
 module.exports = router;

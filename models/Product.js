@@ -13,7 +13,7 @@ const ProductSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
-    default: Veg,
+    default: 'Veg',
   },
   url: {
     type: String,
