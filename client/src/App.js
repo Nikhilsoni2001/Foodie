@@ -1,23 +1,51 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
+import Alert from './components/layout/Alert';
+import PrivateRoute from './components/routing/PrivateRoute';
+
+// Redux
+import { Provider } from 'react-redux';
+import store from './store';
+import Verify from './components/auth/Verify';
+import { loadUser } from './actions/auth';
+import setAuthToken from './utils/setAuthToken';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   return (
-    <Router>
-      <Fragment>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </Fragment>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <Alert />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/verify"
+              element={
+                <PrivateRoute>
+                  <Verify />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </Fragment>
+      </Router>
+    </Provider>
   );
 };
 

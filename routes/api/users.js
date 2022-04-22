@@ -16,21 +16,13 @@ router.post(
   [
     check('name', 'Name is required').not().isEmpty(),
     check('email', 'Please provide a valid Email').isEmail(),
-    check('phone_no', 'Please provide a valid Phone Number').isMobilePhone(),
+    check('phone_no', 'Please provide a valid Phone Number')
+      .isNumeric()
+      .isLength({ min: 10 }),
     check(
       'password',
       'Password should be combination of one uppercase , one lower case, one special char, one digit and min 8 , max 20 char long'
     ).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, 'i'),
-    check('confirmPassword', 'Passwords do not match!').custom(
-      (value, { req }) => {
-        if (value !== req.body.password) {
-          // trow error if passwords do not match
-          throw new Error("Passwords don't match");
-        } else {
-          return value;
-        }
-      }
-    ),
   ],
   async (req, res) => {
     const errors = validationResult(req);

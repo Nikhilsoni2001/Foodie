@@ -61,7 +61,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="navbar bg-dark">
+    <nav className="navbar">
       <h1>
         <Link to="/">
           <i class="fa-solid fa-utensils"></i> Foodie
