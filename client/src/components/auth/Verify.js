@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { verifyEmail } from '../../actions/auth';
+import { resendCode, verifyEmail } from '../../actions/auth';
 import { Navigate } from 'react-router-dom';
 
 const Verify = ({
   verifyEmail,
+  resendCode,
   auth: {
     loading,
     isAuthenticated,
-    user: { verify },
+    user: { _id, name, email, verify },
   },
 }) => {
   const [code, setCode] = useState('');
 
   const onChange = (e) => {
     setCode(e.target.value);
+  };
+
+  const handleResend = (e) => {
+    const id = _id;
+    resendCode(id, name, email);
   };
 
   const onSubmit = (e) => {
@@ -67,7 +73,13 @@ const Verify = ({
 
           <div className="form-group">
             <div className="center">
-              <button>Resend Code</button>
+              <button
+                onClick={(e) => {
+                  handleResend(e);
+                }}
+              >
+                Resend Code
+              </button>
             </div>
           </div>
         </form>
@@ -78,10 +90,11 @@ const Verify = ({
 
 Verify.propTypes = {
   verifyEmail: PropTypes.func.isRequired,
+  resendCode: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { verifyEmail })(Verify);
+export default connect(mapStateToProps, { verifyEmail, resendCode })(Verify);

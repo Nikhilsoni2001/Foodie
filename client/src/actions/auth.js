@@ -8,6 +8,8 @@ import {
   LOGIN_FAILED,
   VERIFY_SUCCESS,
   VERIFY_FAILED,
+  RESEND_SUCCESS,
+  RESEND_FAILED,
   LOGOUT,
 } from './types';
 import { setAlert } from './alert';
@@ -116,6 +118,34 @@ export const verifyEmail = (code) => async (dispatch) => {
     }
     dispatch({
       type: VERIFY_FAILED,
+    });
+  }
+};
+
+// Resend Code
+export const resendCode = (id, name, email) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({ id, name, email });
+
+  try {
+    const res = await axios.post('/api/auth/resend', body, config);
+
+    dispatch({
+      type: RESEND_SUCCESS,
+      payload: res.data,
+    });
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach((err) => dispatch(setAlert(err.msg, 'danger')));
+    }
+    dispatch({
+      type: RESEND_FAILED,
     });
   }
 };

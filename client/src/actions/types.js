@@ -13,4 +13,7 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const VERIFY_SUCCESS = 'VERIFY_SUCCESS';
 export const VERIFY_FAILED = 'VERIFY_FAILED';
 
+export const RESEND_SUCCESS = 'RESEND_SUCCESS';
+export const RESEND_FAILED = 'RESEND_FAILED';
+
 export const LOGOUT = 'LOGOUT';

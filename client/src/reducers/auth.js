@@ -8,6 +8,8 @@ import {
   LOGOUT,
   VERIFY_SUCCESS,
   VERIFY_FAILED,
+  RESEND_SUCCESS,
+  RESEND_FAILED,
 } from '../actions/types';
 
 const initialState = {
@@ -22,6 +24,7 @@ export default function (state = initialState, action) {
   switch (type) {
     case USER_LOADED:
     case VERIFY_SUCCESS:
+    case RESEND_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
@@ -34,6 +37,7 @@ export default function (state = initialState, action) {
       return { ...state, ...payload, isAuthenticated: true, loading: false };
 
     case VERIFY_FAILED:
+    case RESEND_FAILED:
       return { ...state, ...payload, isAuthenticated: true, loading: false };
 
     case REGISTER_FAILED:
