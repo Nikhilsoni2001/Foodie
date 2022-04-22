@@ -275,6 +275,21 @@ img {
   height: 90vh;
 }
 
+/* Verify */
+.verify {
+  border: 1px solid #17a2b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1rem;
+  text-align: center;
+}
+
+.verify .verify-head {
+  color: var(--primary-color);
+}
+
 /* Forms */
 .form .form-group {
   display: flex;
@@ -321,6 +336,7 @@ button {
 }
 
 .center {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -388,6 +404,10 @@ button {
   .right-signup h1,
   .left-login h1 {
     padding: 4rem 0;
+  }
+
+  .verify {
+    margin: 2rem;
   }
 
   /* Forms */

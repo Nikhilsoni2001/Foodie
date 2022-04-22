@@ -95,7 +95,14 @@ router.post(
     try {
       const user = await User.findOne({ uid: req.body.code });
 
-      if (!user) return res.status(401).send('Inavalid Code!');
+      if (!user)
+        return res.status(401).json({
+          errors: [
+            {
+              msg: 'Invalid Code!',
+            },
+          ],
+        });
 
       if (user.verify) {
         return res

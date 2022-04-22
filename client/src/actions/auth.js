@@ -6,6 +6,9 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAILED,
+  VERIFY_SUCCESS,
+  VERIFY_FAILED,
+  LOGOUT,
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -85,4 +88,41 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_FAILED,
     });
   }
+};
+
+// Verify User's Email
+export const verifyEmail = (code) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const body = JSON.stringify({ code });
+
+  try {
+    const res = await axios.post('/api/auth/verify', body, config);
+
+    dispatch({
+      type: VERIFY_SUCCESS,
+      payload: res.data,
+    });
+    dispatch(loadUser());
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach((err) => dispatch(setAlert(err.msg, 'danger')));
+    }
+    dispatch({
+      type: VERIFY_FAILED,
+    });
+  }
+};
+
+// Logout
+export const logout = () => (dispatch) => {
+  dispatch({
+    type: LOGOUT,
+  });
 };
