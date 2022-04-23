@@ -54,7 +54,7 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
       </li>
       <li>
         <Link to="/login" onClick={logout}>
-          <i class="fa-solid fa-right-from-bracket"></i>
+          <i className="fa-solid fa-right-from-bracket"></i>
           <span className="hide-sm"> Logout</span>
         </Link>
       </li>
@@ -65,7 +65,7 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
     <nav className="navbar">
       <h1>
         <Link to="/">
-          <i class="fa-solid fa-utensils"></i> Foodie
+          <i className="fa-solid fa-utensils"></i> Foodie
         </Link>
       </h1>
 
@@ -82,7 +82,7 @@ const mapStateToProps = (state) => ({
 
 Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
-  auth: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, { logout })(Navbar);

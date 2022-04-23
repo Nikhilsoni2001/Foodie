@@ -14,6 +14,7 @@ import store from './store';
 import Verify from './components/auth/Verify';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+import Contact from './components/Contact';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -39,6 +40,14 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <Verify />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <PrivateRoute>
+                  <Contact />
                 </PrivateRoute>
               }
             />

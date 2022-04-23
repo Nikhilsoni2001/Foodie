@@ -290,6 +290,27 @@ img {
   color: var(--primary-color);
 }
 
+/* Contact */
+.contact {
+  display: flex;
+}
+
+.left-contact {
+  width: 50%;
+}
+
+.right-contact {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-head {
+  color: var(--primary-color);
+}
+
 /* Forms */
 .form .form-group {
   display: flex;
@@ -410,8 +431,17 @@ button {
     margin: 2rem;
   }
 
+  /* Contact */
+  .right-contact {
+    width: 100%;
+  }
+
   /* Forms */
   .form .form-group {
     margin: 1.2rem 2rem;
+  }
+
+  label {
+    font-size: 0.8rem;
   }
 }
