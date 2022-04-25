@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import PropTypes from 'prop-types';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -68,6 +68,12 @@ const Login = ({ login, isAuthenticated }) => {
             </div>
             <div className="center">
               <input type="submit" value="Login" />
+            </div>
+
+            <div className="center">
+              <Link to="/forget">
+                <p>Forget password?</p>
+              </Link>
             </div>
           </form>
         </div>

@@ -190,7 +190,7 @@ router.post(
     try {
       const user = await User.findOne({ email });
 
-      if (!user) return res.status(400).json('User not registered!');
+      if (!user) return res.status(400).json({ msg: 'User not registered!' });
 
       let name = user.name;
       let code = shortid.generate();

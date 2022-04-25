@@ -16,4 +16,7 @@ export const VERIFY_FAILED = 'VERIFY_FAILED';
 export const RESEND_SUCCESS = 'RESEND_SUCCESS';
 export const RESEND_FAILED = 'RESEND_FAILED';
 
+export const FORGET_SUCCESS = 'FORGET_SUCCESS';
+export const FORGET_FAILED = 'FORGET_FAILED';
+
 export const LOGOUT = 'LOGOUT';

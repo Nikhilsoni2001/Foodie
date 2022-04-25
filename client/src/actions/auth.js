@@ -10,6 +10,8 @@ import {
   VERIFY_FAILED,
   RESEND_SUCCESS,
   RESEND_FAILED,
+  FORGET_SUCCESS,
+  FORGET_FAILED,
   LOGOUT,
 } from './types';
 import { setAlert } from './alert';
@@ -118,6 +120,31 @@ export const verifyEmail = (code) => async (dispatch) => {
     }
     dispatch({
       type: VERIFY_FAILED,
+    });
+  }
+};
+
+// Forget Password
+export const forgetPassword = (email) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({ email });
+
+  try {
+    const res = await axios.post('/api/auth/forget', body, config);
+
+    dispatch({ type: FORGET_SUCCESS });
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach((err) => dispatch(setAlert(err.msg, 'danger')));
+    }
+    dispatch({
+      type: FORGET_FAILED,
     });
   }
 };

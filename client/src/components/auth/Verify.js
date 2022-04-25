@@ -26,7 +26,6 @@ const Verify = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('Submit');
     verifyEmail(code);
   };
 

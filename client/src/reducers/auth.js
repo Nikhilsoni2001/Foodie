@@ -8,6 +8,8 @@ import {
   LOGOUT,
   VERIFY_SUCCESS,
   VERIFY_FAILED,
+  FORGET_SUCCESS,
+  FORGET_FAILED,
   RESEND_SUCCESS,
   RESEND_FAILED,
 } from '../actions/types';
@@ -36,8 +38,12 @@ export default function (state = initialState, action) {
       localStorage.setItem('token', payload.token);
       return { ...state, ...payload, isAuthenticated: true, loading: false };
 
+    case FORGET_SUCCESS:
+      return { ...state, ...payload, isAuthenticated: false, loading: false };
+
     case VERIFY_FAILED:
     case RESEND_FAILED:
+    case FORGET_FAILED:
       return { ...state, ...payload, isAuthenticated: true, loading: false };
 
     case REGISTER_FAILED:
