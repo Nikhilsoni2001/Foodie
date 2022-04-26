@@ -136,7 +136,7 @@ export const forgetPassword = (email) => async (dispatch) => {
   try {
     const res = await axios.post('/api/auth/forget', body, config);
 
-    dispatch({ type: FORGET_SUCCESS });
+    dispatch({ type: FORGET_SUCCESS, payload: res.data });
   } catch (error) {
     const errors = error.response.data.errors;
 

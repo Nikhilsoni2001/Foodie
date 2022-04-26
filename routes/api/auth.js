@@ -190,7 +190,14 @@ router.post(
     try {
       const user = await User.findOne({ email });
 
-      if (!user) return res.status(400).json({ msg: 'User not registered!' });
+      if (!user)
+        return res.status(400).json({
+          errors: [
+            {
+              msg: 'User not registered!',
+            },
+          ],
+        });
 
       let name = user.name;
       let code = shortid.generate();
@@ -233,7 +240,7 @@ router.post(
         if (error) {
           console.log(error);
         } else {
-          res.status(200).json('Reset Email Sent to your mail id');
+          res.status(200).json({ msg: 'Reset Email Sent to your mail id' });
         }
       });
     } catch (err) {

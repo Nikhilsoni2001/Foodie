@@ -39,11 +39,25 @@ export default function (state = initialState, action) {
       return { ...state, ...payload, isAuthenticated: true, loading: false };
 
     case FORGET_SUCCESS:
-      return { ...state, ...payload, isAuthenticated: false, loading: false };
+      return {
+        ...state,
+        ...payload,
+        isAuthenticated: false,
+        loading: false,
+        mailsent: true,
+      };
+
+    case FORGET_FAILED:
+      return {
+        ...state,
+        ...payload,
+        isAuthenticated: false,
+        loading: false,
+        mailsent: false,
+      };
 
     case VERIFY_FAILED:
     case RESEND_FAILED:
-    case FORGET_FAILED:
       return { ...state, ...payload, isAuthenticated: true, loading: false };
 
     case REGISTER_FAILED:

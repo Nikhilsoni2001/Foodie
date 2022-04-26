@@ -2,14 +2,28 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { forgetPassword } from '../../actions/auth';
+import { setAlert } from '../../actions/alert';
+import { Navigate } from 'react-router-dom';
 
-const Forget = ({ forgetPassword }) => {
+const Forget = ({
+  forgetPassword,
+  auth: { msg, loading, mailsent },
+  setAlert,
+}) => {
   const [email, setEmail] = useState('');
+
+  if (mailsent) {
+    setAlert(msg, 'success');
+    return <Navigate replace to="/" />;
+  }
 
   const sendMail = (e) => {
     e.preventDefault();
     forgetPassword(email);
     setEmail('');
+
+    if (msg === 'Reset Email Sent to your mail id') {
+    }
   };
 
   return (
@@ -41,6 +55,12 @@ const Forget = ({ forgetPassword }) => {
 
 Forget.propTypes = {
   forgetPassword: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
-export default connect(null, { forgetPassword })(Forget);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { forgetPassword, setAlert })(Forget);
