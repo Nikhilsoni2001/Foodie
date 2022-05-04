@@ -19,4 +19,7 @@ export const RESEND_FAILED = 'RESEND_FAILED';
 export const FORGET_SUCCESS = 'FORGET_SUCCESS';
 export const FORGET_FAILED = 'FORGET_FAILED';
 
+export const PRODUCTS_SUCCESS = 'PRODUCTS_SUCCESS';
+export const PRODUCTS_FAILED = 'PRODUCTS_FAILED';
+
 export const LOGOUT = 'LOGOUT';

@@ -16,6 +16,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+import Menu from './components/layout/Menu/Menu';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -50,6 +51,14 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <Contact />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/menu"
+              element={
+                <PrivateRoute>
+                  <Menu />
                 </PrivateRoute>
               }
             />
